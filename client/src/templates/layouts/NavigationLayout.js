@@ -1,4 +1,5 @@
 import { Drawer, List, Button } from "antd-mobile";
+import RatingModal from "../../components/Feedback/RatingModal";
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
@@ -63,10 +64,12 @@ const NavItem = styled(List.Item).attrs((props) => ({
       color: ${white};
       cursor: pointer;
       font-family: "Poppins", sans-serif;
-      font-size: 2.4rem;
-      font-weight: 600;
+      font-size: ${(props) => (props.size === "small" ? "2rem" : "2.4rem")};
+      font-weight: ${(props) => (props.size === "small" ? "400" : "600")};
       line-height: 6rem;
       padding: 0;
+      margin: ${(props) =>
+        typeof props.margin != undefined ? props.margin : "inherit"};
     }
   }
 
@@ -112,8 +115,42 @@ const NavigationLayout = (props) => {
 
   const [drawerOpened, setDrawerOpened] = useState(false);
 
+  const [ratingModal, setRatingModal] = useState(false);
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened);
+  };
+
+  const showRatingModal = () => {
+    toggleDrawer();
+    setRatingModal(!ratingModal);
+  };
+
+  const renderRatingModal = () => {
+    const ratingScale = ["1", "2", "3", "4", "5"];
+
+    return (
+      <RatingModal
+        afterClose={showTextFeedbackModal}
+        maskClosable={true}
+        closable={false}
+        visible={ratingModal}
+        transparent
+      >
+        <h2 className="title">How well does FightPandemics meet your needs?</h2>
+        <div className="rectangle">
+          {ratingScale.map((rating, index) => (
+            <div key={index} onClick={showRatingModal}>
+              {rating}
+            </div>
+          ))}
+        </div>
+        <div className="scale-text">
+          <div>Poorly</div>
+          <div className="spacer"></div>
+          <div>Very well</div>
+        </div>
+      </RatingModal>
+    );
   };
 
   const drawerMenu = () => (
@@ -137,6 +174,9 @@ const NavigationLayout = (props) => {
         </NavItem>
         <NavItem history={history} link="/privacy">
           Data Privacy
+        </NavItem>
+        <NavItem size={"small"} margin={"8rem 0 0"} onClick={showRatingModal}>
+          Feedback
         </NavItem>
       </NavList>
       {drawerOpened && <CloseNav onClick={toggleDrawer} />}
