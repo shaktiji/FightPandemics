@@ -7,15 +7,24 @@ const { darkGray } = theme.global.colors;
 
 export default styled(Modal)`
   font-family: ${theme.typography.font.family.display};
-  width: 47rem;
+  width: 80vw;
+  @media screen and (min-width: 1024px) {
+    width: 29vw;
+  }
 
   .title {
     font-weight: bold;
     margin: 2rem 3rem 2rem;
+    @media screen and (min-width: 1024px) {
+      font-size: 2.2rem;
+    }
   }
 
   .rectangle {
-    width: 41rem;
+    @media screen and (min-width: 1024px) {
+      width: 24vw;
+    }
+    width: 69vw;
     height: 5rem;
     display: inline-flex;
     background: #f3f4fe;
@@ -46,7 +55,10 @@ export default styled(Modal)`
     font-weight: 500;
     font-size: 1.1rem;
     color: ${darkGray};
-    width: 41rem;
+    width: 69vw;
+    @media screen and (min-width: 1024px) {
+      width: 24vw;
+    }
     display: inline-flex;
     margin-bottom: 2rem;
   }
