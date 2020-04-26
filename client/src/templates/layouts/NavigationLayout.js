@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import Header from "components/Header";
-import Footnote from "components/Footnote";
 import CookieAlert from "components/CookieAlert";
-import Main from "./Main";
 import MobileTabs from "./MobileTabs";
 import { theme } from "constants/theme";
 
@@ -129,6 +126,7 @@ const NavigationLayout = (props) => {
   ]);
   const [rating, setRating] = useState(null);
 
+  const [ratingModal, setRatingModal] = useState(false);
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened);
   };
@@ -184,16 +182,16 @@ const NavigationLayout = (props) => {
 
     return (
       <RatingModal
-        afterClose={false}
+        afterClose={showTextFeedbackModal}
         maskClosable={true}
         closable={false}
-        visible={modal.ratingModal}
+        visible={ratingModal}
         transparent
       >
-        <h3 className="title">How well does FightPandemics meet your needs?</h3>
+        <h2 className="title">How well does FightPandemics meet your needs?</h2>
         <div className="rectangle">
           {ratingScale.map((rating, index) => (
-            <div key={index} onClick={() => closeRatingModal(rating)}>
+            <div key={index} onClick={showRatingModal}>
               {rating}
             </div>
           ))}
@@ -229,11 +227,7 @@ const NavigationLayout = (props) => {
         <NavItem history={history} link="/privacy">
           Data Privacy
         </NavItem>
-        <NavItem
-          size={"small"}
-          margin={"8rem 0 0"}
-          onClick={() => setModal({ ratingModal: true })}
-        >
+        <NavItem size={"small"} margin={"8rem 0 0"} onClick={showRatingModal}>
           Feedback
         </NavItem>
       </NavList>
