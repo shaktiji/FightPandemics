@@ -188,7 +188,7 @@ const NavigationLayout = (props) => {
         visible={ratingModal}
         transparent
       >
-        <h2 className="title">How well does FightPandemics meet your needs?</h2>
+        <h3 className="title">How well does FightPandemics meet your needs?</h3>
         <div className="rectangle">
           {ratingScale.map((rating, index) => (
             <div key={index} onClick={showRatingModal}>
