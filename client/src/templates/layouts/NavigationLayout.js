@@ -126,7 +126,6 @@ const NavigationLayout = (props) => {
   ]);
   const [rating, setRating] = useState(null);
 
-  const [ratingModal, setRatingModal] = useState(false);
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened);
   };
@@ -182,16 +181,16 @@ const NavigationLayout = (props) => {
 
     return (
       <RatingModal
-        afterClose={showTextFeedbackModal}
+        afterClose={false}
         maskClosable={true}
         closable={false}
-        visible={ratingModal}
+        visible={modal.ratingModal}
         transparent
       >
         <h3 className="title">How well does FightPandemics meet your needs?</h3>
         <div className="rectangle">
           {ratingScale.map((rating, index) => (
-            <div key={index} onClick={showRatingModal}>
+            <div key={index} onClick={() => closeRatingModal(rating)}>
               {rating}
             </div>
           ))}
@@ -227,7 +226,11 @@ const NavigationLayout = (props) => {
         <NavItem history={history} link="/privacy">
           Data Privacy
         </NavItem>
-        <NavItem size={"small"} margin={"8rem 0 0"} onClick={showRatingModal}>
+        <NavItem
+          size={"small"}
+          margin={"8rem 0 0"}
+          onClick={() => setModal({ ratingModal: true })}
+        >
           Feedback
         </NavItem>
       </NavList>
