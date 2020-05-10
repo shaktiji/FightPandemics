@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
-import CookieAlert from "components/CookieAlert";
 import MobileTabs from "./MobileTabs";
 import { theme } from "constants/theme";
 
+import CookieAlert from "~/components/CookieAlert";
 import Footnote from "~/components/Footnote";
 import Header from "~/components/Header";
 import FeedbackSubmitButton from "../../components/Button/FeedbackModalButton";
@@ -14,7 +14,6 @@ import RatingModal from "../../components/Feedback/RatingModal";
 import TextFeedbackModal from "../../components/Feedback/TextFeedbackModal";
 import withLabel from "../../components/Input/with-label";
 import StyledInput from "../../components/StepWizard/StyledTextInput";
-import { theme } from "../../constants/theme";
 import Main from "./Main";
 
 const { royalBlue, tropicalBlue, white } = theme.colors;
