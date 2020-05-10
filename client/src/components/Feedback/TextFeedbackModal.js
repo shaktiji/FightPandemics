@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Modal } from "antd-mobile";
 import { theme } from "../../constants/theme";
 
-const { darkGray } = theme.global.colors;
+const { darkerGray } = theme.colors;
 
 export default styled(Modal)`
   font-family: ${theme.typography.font.family.display};
@@ -27,7 +27,7 @@ export default styled(Modal)`
 
   .am-input-control {
     input {
-      color: ${darkGray};
+      color: ${darkerGray};
     }
   }
 `;

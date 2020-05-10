@@ -3,7 +3,7 @@ import { Modal } from "antd-mobile";
 import { theme } from "../../constants/theme";
 
 const { royalBlue } = theme.colors;
-const { darkGray } = theme.global.colors;
+const { darkerGray } = theme.colors;
 
 export default styled(Modal)`
   font-family: ${theme.typography.font.family.display};
@@ -54,7 +54,7 @@ export default styled(Modal)`
   .scale-text {
     font-weight: 500;
     font-size: 1.1rem;
-    color: ${darkGray};
+    color: ${darkerGray};
     width: 69vw;
     @media screen and (min-width: 1024px) {
       width: 24vw;
