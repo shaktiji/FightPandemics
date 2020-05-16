@@ -1,5 +1,5 @@
 import { Button, Drawer, List } from "antd-mobile";
-import React, { useState } from "react";
+import React, { useState, useReducer } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
@@ -15,6 +15,18 @@ import TextFeedbackModal from "../../components/Feedback/TextFeedbackModal";
 import withLabel from "../../components/Input/with-label";
 import StyledInput from "../../components/StepWizard/StyledTextInput";
 import Main from "./Main";
+import { TOGGLE_STATE, SET_VALUE } from "../../hooks/actions/feedbackActions";
+import { feedbackReducer } from "../../hooks/reducers/feedbackReducer";
+
+const initialState = {
+  ratingModal: false,
+  textFeedbackModal: false,
+  rating: "",
+  mostValuableFeature: "",
+  whatWouldChange: "",
+  generalFeedback: "",
+  covidImpact: "",
+};
 
 const { royalBlue, tropicalBlue, white } = theme.colors;
 
@@ -123,34 +135,58 @@ const NavigationLayout = (props) => {
     { ratingModal: false },
     { textFeedbackModal: false },
   ]);
-  const [rating, setRating] = useState(null);
+
+  const [feedbackState, feedbackDispatch] = useReducer(
+    feedbackReducer,
+    initialState,
+  );
+
+  const {
+    ratingModal,
+    textFeedbackModal,
+    rating,
+    mostValuableFeature,
+    whatWouldChange,
+    generalFeedback,
+    covidImpact,
+  } = feedbackState;
+
+  const dispatchAction = (type, key, value) =>
+    feedbackDispatch({ type, key, value });
 
   const toggleDrawer = () => {
     setDrawerOpened(!drawerOpened);
   };
 
-  const closeRatingModal = (rating) => {
+  const toggleModal = (modalName) => {
+    dispatchAction(TOGGLE_STATE, modalName);
+  };
+
+  const closeRatingModal = (ratingValue) => {
     if (drawerOpened) {
       toggleDrawer();
     }
-
-    setModal({ ratingModal: false });
-
-    if (modal.ratingModal) {
-      setRating(rating);
-      setModal({ textFeedbackModal: true });
-    }
+    dispatchAction(SET_VALUE, "rating", ratingValue);
+    toggleModal("ratingModal");
+    toggleModal("textFeedbackModal");
   };
 
   const closeTextFeedbackModal = () => {
-    setModal({ ratitextFeedbackModalngModal: false });
+    toggleModal("textFeedbackModal");
   };
 
   const renderTextFeedbackModal = () => {
     const inputLabelsText = [
-      "Which features are the most valuable to you?",
-      "If you could change one thing about FightPandemics, what would it be?",
-      "Any other feedback for us?",
+      {
+        stateKey: "mostValuableFeature",
+        label: "Which features are the most valuable to you?",
+      },
+      {
+        stateKey: "whatWouldChange",
+        label:
+          "If you could change one thing about FightPandemics, what would it be?",
+      },
+      { stateKey: "generalFeedback", label: "Any other feedback for us?" },
     ];
 
     const InputWithLabel = withLabel(() => <StyledInput></StyledInput>);
@@ -160,17 +196,27 @@ const NavigationLayout = (props) => {
         afterClose={() => closeTextFeedbackModal}
         maskClosable={true}
         closable={true}
-        visible={modal.textFeedbackModal}
+        visible={textFeedbackModal}
         onClose={() => closeTextFeedbackModal()}
         transparent
       >
         <h2 className="title">
           Thank you for being an early user of FightPandemics!
         </h2>
-        {inputLabelsText.map((labelText, index) => (
-          <InputWithLabel key={index} label={labelText}></InputWithLabel>
+        {inputLabelsText.map((label, index) => (
+          <InputWithLabel
+            onChange={(e) =>
+              dispatchAction(SET_VALUE, label.stateKey, e.target.value)
+            }
+            key={index}
+            label={label.label}
+            value={label.stateKey}
+          ></InputWithLabel>
         ))}
-        <FeedbackSubmitButton title="Next"></FeedbackSubmitButton>
+        <FeedbackSubmitButton
+          title="Next"
+          onClick={closeTextFeedbackModal}
+        ></FeedbackSubmitButton>
       </TextFeedbackModal>
     );
   };
@@ -180,10 +226,9 @@ const NavigationLayout = (props) => {
 
     return (
       <RatingModal
-        afterClose={false}
         maskClosable={true}
         closable={false}
-        visible={modal.ratingModal}
+        visible={ratingModal}
         transparent
       >
         <h3 className="title">How well does FightPandemics meet your needs?</h3>
@@ -228,7 +273,7 @@ const NavigationLayout = (props) => {
         <NavItem
           size={"small"}
           margin={"8rem 0 0"}
-          onClick={() => setModal({ ratingModal: true })}
+          onClick={() => dispatchAction(TOGGLE_STATE, "ratingModal")}
         >
           Feedback
         </NavItem>
