@@ -4,7 +4,7 @@ import { theme } from "../../constants/theme";
 
 const { darkerGray } = theme.colors;
 
-export default styled(Modal)`
+const TextFeedbackModal = styled(Modal)`
   font-family: ${theme.typography.font.family.display};
   width: 80vw;
   @media screen and (min-width: 1024px) {
@@ -31,3 +31,5 @@ export default styled(Modal)`
     }
   }
 `;
+
+export default TextFeedbackModal;

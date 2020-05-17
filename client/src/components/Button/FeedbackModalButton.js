@@ -6,19 +6,30 @@ import { theme, mq } from "../../constants/theme";
 const { colors } = theme;
 const { selago, royalBlue } = colors;
 
-const FeedbackModalButton = styled(SubmitButton)`
-  width: 13vw;
-  margin-top: 1rem;
+const StyledFeedbackModalButton = styled(SubmitButton)`
+  @media screen and (min-width: 1024px) {
+    width: 13vw;
+    margin-top: 1rem;
+    margin-bottom: -0.5rem;
+  }
+  width: 90%;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
   background-color: ${selago};
   border: none;
-  font-weight: bold;
   span {
     color: ${royalBlue};
   }
 `;
 
-export default (props) => {
-  const { title } = props;
+const FeedbackModalButton = (props) => {
+  const { title, onClick } = props;
 
-  return <FeedbackModalButton title={title} />;
+  return (
+    <StyledFeedbackModalButton onClick={onClick}>
+      {title}
+    </StyledFeedbackModalButton>
+  );
 };
+
+export default FeedbackModalButton;

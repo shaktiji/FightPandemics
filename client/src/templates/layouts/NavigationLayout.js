@@ -13,8 +13,7 @@ import FeedbackSubmitButton from "../../components/Button/FeedbackModalButton";
 import RatingModal from "../../components/Feedback/RatingModal";
 import TextFeedbackModal from "../../components/Feedback/TextFeedbackModal";
 import withLabel from "../../components/Input/with-label";
-import StyledInput from "../../components/StepWizard/StyledTextInput";
-import Main from "./Main";
+import StyledInput from "../../components/Feedback/StyledTextInput";
 import { TOGGLE_STATE, SET_VALUE } from "../../hooks/actions/feedbackActions";
 import { feedbackReducer } from "../../hooks/reducers/feedbackReducer";
 

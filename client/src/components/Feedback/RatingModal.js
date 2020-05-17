@@ -5,7 +5,7 @@ import { theme } from "../../constants/theme";
 const { royalBlue } = theme.colors;
 const { darkerGray } = theme.colors;
 
-export default styled(Modal)`
+const RatingModal = styled(Modal)`
   font-family: ${theme.typography.font.family.display};
   width: 80vw;
   @media screen and (min-width: 1024px) {
@@ -68,3 +68,5 @@ export default styled(Modal)`
     flex-grow: 1;
   }
 `;
+
+export default RatingModal;
