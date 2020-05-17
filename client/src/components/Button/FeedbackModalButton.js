@@ -4,7 +4,7 @@ import styled from "styled-components";
 import SubmitButton from "./SubmitButton";
 import { theme, mq } from "../../constants/theme";
 const { colors } = theme;
-const { selago, royalBlue } = colors;
+const { selago, royalBlue, white } = colors;
 
 const StyledFeedbackModalButton = styled(SubmitButton)`
   @media screen and (min-width: 1024px) {
@@ -15,18 +15,18 @@ const StyledFeedbackModalButton = styled(SubmitButton)`
   width: 90%;
   margin-top: 3rem;
   margin-bottom: 1rem;
-  background-color: ${selago};
+  background-color: ${(props) => (props.dark ? royalBlue : selago)};
   border: none;
   span {
-    color: ${royalBlue};
+    color: ${(props) => (props.dark ? white : royalBlue)};
   }
 `;
 
 const FeedbackModalButton = (props) => {
-  const { title, onClick } = props;
+  const { title, onClick, dark } = props;
 
   return (
-    <StyledFeedbackModalButton onClick={onClick}>
+    <StyledFeedbackModalButton onClick={onClick} dark={dark}>
       {title}
     </StyledFeedbackModalButton>
   );
