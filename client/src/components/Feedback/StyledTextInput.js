@@ -1,9 +1,12 @@
 import styled from "styled-components";
-import { InputItem } from "antd-mobile";
 import { theme } from "constants/theme";
+import React, { useState } from "react";
+import { SET_VALUE } from "../../hooks/actions/feedbackActions";
+import TextInput from "components/Input/TextInput";
 
-const StyledTextInput = styled(InputItem)`
+const StyledTextInput = styled(TextInput)`
   width: 100%;
+  padding-top: 2rem;
 
   &.am-list-item {
     &.am-input-item {
@@ -25,4 +28,21 @@ const StyledTextInput = styled(InputItem)`
   }
 `;
 
-export default StyledTextInput;
+const TextField = ({ label, onChange }) => {
+  const [inputText, setInputText] = useState("");
+
+  const handleChange = (e) => {
+    setInputText(e.state.value);
+    onChange(SET_VALUE, label, inputText);
+  };
+
+  return (
+    <StyledTextInput
+      value={inputText}
+      onChange={(e) => handleChange(e)}
+      label={label}
+    ></StyledTextInput>
+  );
+};
+
+export default TextField;
