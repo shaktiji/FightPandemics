@@ -6,9 +6,11 @@ import styled from "styled-components";
 import MobileTabs from "./MobileTabs";
 import { theme } from "constants/theme";
 
-import CookieAlert from "~/components/CookieAlert";
-import Footnote from "~/components/Footnote";
-import Header from "~/components/Header";
+import CookieAlert from "components/CookieAlert";
+import Footnote from "components/Footnote";
+import Header from "components/Header";
+import Main from "./Main";
+
 import FeedbackSubmitButton from "../../components/Button/FeedbackModalButton";
 import RatingModal from "../../components/Feedback/RatingModal";
 import TextFeedbackModal from "../../components/Feedback/TextFeedbackModal";
