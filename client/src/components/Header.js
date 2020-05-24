@@ -2,6 +2,7 @@ import React from "react";
 import { NavBar } from "antd-mobile";
 import { Link, NavLink } from "react-router-dom";
 // import { Menu as MenuIcon } from "grommet-icons";
+import { ReactComponent as FeedbackIcon } from "assets/icons/mail.svg";
 import styled from "styled-components";
 
 // ICONS
@@ -54,6 +55,12 @@ const DesktopMenu = styled.div`
 const NavLinks = styled.div`
   align-self: flex-end;
   padding-top: 2rem;
+  button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+  }
+
   ul {
     list-style-type: none;
     display: flex;
@@ -78,6 +85,7 @@ const NavLinks = styled.div`
     li {
       font-size: ${large};
       color: #282828;
+      padding: 0 1rem;
       a:not(.registerLink) {
         color: #282828;
         text-decoration: none;
@@ -99,7 +107,7 @@ const activeStyles = {
   color: "#425AF2",
 };
 
-export default ({ onMenuClick, ...props }) => {
+export default ({ onMenuClick, onFeedbackIconClick, ...props }) => {
   return (
     <div className="header" {...props}>
       <StyledNavBar
@@ -151,6 +159,11 @@ export default ({ onMenuClick, ...props }) => {
                       </li>
                     </>
                   )}
+                  <li>
+                    <button onClick={() => onFeedbackIconClick()}>
+                      <FeedbackIcon />
+                    </button>
+                  </li>
                 </ul>
               </NavLinks>
             </DesktopMenu>
