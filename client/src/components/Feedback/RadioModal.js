@@ -19,6 +19,10 @@ const RadioModal = styled(Modal)`
     display: inline-block;
   }
 
+  .am-modal-body {
+    overflow-x: hidden;
+  }
+
   p {
     margin: 1rem 1em 0 0;
     text-align: left;

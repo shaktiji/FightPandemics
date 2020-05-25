@@ -12,6 +12,7 @@ const StyledRadioGroup = styled(Radio.Group)`
   .ant-radio-wrapper {
     justify-content: space-between;
     padding: ${(props) => props.padding};
+    white-space: break-spaces;
 
     span.ant-radio + * {
       font-family: ${display};
