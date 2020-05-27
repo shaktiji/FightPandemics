@@ -3,7 +3,6 @@ import React, { useState, useReducer } from "react";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import MobileTabs from "./MobileTabs";
-import { theme } from "constants/theme";
 import CookieAlert from "components/CookieAlert";
 import Footnote from "components/Footnote";
 import Header from "components/Header";
@@ -18,20 +17,20 @@ import logo from "assets/logo.svg";
 import RadioGroup from "components/Feedback/RadioGroup";
 import withLabel from "components/Input/with-label";
 import StyledInput from "components/Feedback/StyledTextInput";
-import { TOGGLE_STATE, SET_VALUE } from "hooks/actions/feedbackActions";
-import { feedbackReducer } from "hooks/reducers/feedbackReducer";
-
-const initialState = {
-  ratingModal: false,
-  textFeedbackModal: false,
-  rating: "",
-  mostValuableFeature: "",
-  whatWouldChange: "",
-  generalFeedback: "",
-  covidImpact: "",
-};
-
-const { royalBlue, tropicalBlue, white } = theme.colors;
+import {
+  TOGGLE_STATE,
+  SET_VALUE,
+  FEEDBACK_FORM_SUBMIT,
+  FEEDBACK_FORM_SUBMIT_ERROR,
+} from "hooks/actions/feedbackActions";
+import {
+  feedbackReducer,
+  feedbackFormReducer,
+  initialState,
+} from "hooks/reducers/feedbackReducers";
+import { Alert } from "antd";
+import { ORANGE_RED, WHITE, ROYAL_BLUE, TROPICAL_BLUE } from "constants/colors";
+import axios from "axios";
 
 const drawerStyles = {
   position: "relative",
@@ -40,7 +39,7 @@ const drawerStyles = {
 };
 
 const sidebarStyle = {
-  background: `${royalBlue}`,
+  background: `${ROYAL_BLUE}`,
 };
 
 const NavList = styled(List)`
@@ -81,7 +80,7 @@ const NavItem = styled(List.Item).attrs((props) => ({
       height: 0 !important;
     }
     & .am-list-content {
-      color: ${white};
+      color: ${WHITE};
       cursor: pointer;
       font-family: "Poppins", sans-serif;
       font-size: ${(props) => (props.size === "small" ? "2rem" : "2.4rem")};
@@ -94,7 +93,7 @@ const NavItem = styled(List.Item).attrs((props) => ({
   }
 
   &.am-list-item-active {
-    background: ${tropicalBlue};
+    background: ${TROPICAL_BLUE};
   }
 `;
 
@@ -106,7 +105,7 @@ const CloseNav = styled(Button).attrs((props) => ({
   background: unset;
   border-width: 0 !important;
   border-radius: 0;
-  color: ${white};
+  color: ${WHITE};
   cursor: pointer;
   font-size: 2rem;
   position: absolute;
@@ -116,7 +115,7 @@ const CloseNav = styled(Button).attrs((props) => ({
 
   &.am-button-active {
     background: none;
-    color: ${white};
+    color: ${WHITE};
   }
   &::before {
     display: none;
@@ -124,7 +123,14 @@ const CloseNav = styled(Button).attrs((props) => ({
 
   .am-icon {
     stroke-width: 2px;
-    stroke: ${white};
+    stroke: ${WHITE};
+  }
+`;
+
+const ErrorAlert = styled(Alert)`
+  background-color: ${ORANGE_RED};
+  .ant-alert-message {
+    color: ${WHITE};
   }
 `;
 
@@ -137,7 +143,12 @@ const NavigationLayout = (props) => {
 
   const [feedbackState, feedbackDispatch] = useReducer(
     feedbackReducer,
-    initialState,
+    initialState.feedbackReducer,
+  );
+
+  const [feedbackFormState, feedbackFormDispatch] = useReducer(
+    feedbackFormReducer,
+    initialState.feedbackFormReducer,
   );
 
   const {
@@ -180,8 +191,32 @@ const NavigationLayout = (props) => {
   };
 
   const closeRadioModal = () => {
+    submitFeedbackForm();
     toggleModal("radioModal");
-    toggleModal("thanksModal");
+    if (feedbackFormState.error === "") {
+      toggleModal("thanksModal");
+    }
+  };
+
+  const submitFeedbackForm = async () => {
+    feedbackFormDispatch({ type: FEEDBACK_FORM_SUBMIT });
+    try {
+      await axios.post("/api/feedback", {
+        rating: rating,
+        age: age,
+        userId: 5,
+        covidImpact: covidImpact,
+        generalFeedback: generalFeedback,
+        mostValuableFeature: mostValuableFeature,
+        whatWouldChange: whatWouldChange,
+      });
+    } catch (err) {
+      const message = err.response?.data?.message || err.message;
+      feedbackFormDispatch({
+        type: FEEDBACK_FORM_SUBMIT_ERROR,
+        error: `Could not submit feedback, reason: ${message}`,
+      });
+    }
   };
 
   const renderThanksModal = () => {
@@ -401,6 +436,13 @@ const NavigationLayout = (props) => {
             {renderTextFeedbackModal()}
             {renderRadioModal()}
             {renderThanksModal()}
+            {feedbackFormState.error && (
+              <ErrorAlert
+                message={feedbackFormState.error}
+                type="error"
+                closable={true}
+              />
+            )}
           </Main>
           <Footnote />
           <CookieAlert />
