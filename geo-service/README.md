@@ -1,6 +1,29 @@
 # Geo Service
 
-A simple flask-based service which translate latitude and longitude into location details.
+Using googlemaps to get structured location for geolocation based filtering.
+
+The primary feature leveraged is [Autocomplete with Places Detail](https://developers.google.com/maps/billing/gmp-billing#ac-no-details-session)
+
+## Tests
+
+* Unit tests are done on classes & functions not dependent on calling Google API
+* We are not testing end-to-end with Google API, if issues are found due to for unanticipated edge cases these should be fixed and added as extra test case
+* Add to `tests/` folder using `unittest` module, one `test_*` file per code file
+* Use the command `python -m unittest tests/tests_*` to run the tests
+
+## Usage
+
+### Address Autocomplete
+
+* The client should generate a UUID V4 session token to use for getting multiple addresses while typing to limit costs
+* The client should send /autocomplete?token=TOKEN&input=ADDRESS_GUESS_INPUT
+* The address guess input needs to be at least 3 characters
+* A list of addresses is returned, the user then selects it
+
+### Place Details
+
+* The client should send the same generated UUID V4 session token during autocomplete once selected
+* The client should send the selected addresses `place_id`
 
 ## Running Locally With Docker
 
@@ -22,6 +45,6 @@ You can update dependencies using `pip-compile`, or add new ones by adding lines
 
 A few non-essential things which are missing:
 
-[ ] Tests would be cool
+[x] Tests would be cool
 [ ] Linting is love
 [ ] Maybe consider using sentry to handle exceptions in production
