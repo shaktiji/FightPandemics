@@ -57,15 +57,15 @@ export const RouteWithSubRoutes = (route) => {
             }}
           />
         ) : (
-          <Layout
-            {...rest}
-            {...route.props}
-            component={route.component}
-            routes={route.routes}
-            mobiletabs={mobiletabs}
-            tabIndex={tabIndex}
-          />
-        );
+            <Layout
+              {...rest}
+              {...route.props}
+              component={route.component}
+              routes={route.routes}
+              mobiletabs={mobiletabs}
+              tabIndex={tabIndex}
+            />
+          );
       }}
     />
   );
