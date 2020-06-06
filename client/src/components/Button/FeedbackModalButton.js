@@ -8,7 +8,7 @@ const { selago, royalBlue, white } = colors;
 
 const StyledFeedbackModalButton = styled(SubmitButton)`
   @media screen and (min-width: 1024px) {
-    width: 13vw;
+    width: 21vw;
     margin-top: 1rem;
     margin-bottom: -0.5rem;
   }
@@ -32,4 +32,4 @@ const FeedbackModalButton = (props) => {
   );
 };
 
-export default FeedbackModalButton;
+export default FeedbackModalButton; 

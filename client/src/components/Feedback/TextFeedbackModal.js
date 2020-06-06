@@ -14,17 +14,14 @@ const TextFeedbackModal = styled(Modal)`
     font-weight: bold;
     margin: 2rem 3rem 2rem;
   }
-
   .am-button {
     display: inline-block;
   }
-
   p {
     margin: 1rem 1em 0 0;
     text-align: left;
     font-weight: 500;
   }
-
   .am-input-control {
     input {
       color: ${darkerGray};

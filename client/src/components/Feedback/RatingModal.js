@@ -11,7 +11,6 @@ const RatingModal = styled(Modal)`
   @media screen and (min-width: 1024px) {
     width: 29vw;
   }
-
   .title {
     font-weight: bold;
     margin: 2rem 3rem 2rem;
@@ -19,7 +18,6 @@ const RatingModal = styled(Modal)`
       font-size: 2.2rem;
     }
   }
-
   .rectangle {
     @media screen and (min-width: 1024px) {
       width: 24vw;
@@ -42,7 +40,7 @@ const RatingModal = styled(Modal)`
       &:hover,
       &:active,
       &:focus {
-        background-color: ${royalBlue};
+        background-color: ${darkerGray};
         color: #fff;
       }
       &:last-child {
@@ -50,11 +48,10 @@ const RatingModal = styled(Modal)`
       }
     }
   }
-
   .scale-text {
     font-weight: 500;
     font-size: 1.1rem;
-    color: ${darkerGray};
+    color: ${royalBlue};
     width: 69vw;
     @media screen and (min-width: 1024px) {
       width: 24vw;
@@ -62,7 +59,6 @@ const RatingModal = styled(Modal)`
     display: inline-flex;
     margin-bottom: 2rem;
   }
-
   .spacer {
     visibility: hidden;
     flex-grow: 1;

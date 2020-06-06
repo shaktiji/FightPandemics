@@ -1,14 +1,16 @@
 import React from "react";
 import { NavBar } from "antd-mobile";
 import { Link, NavLink } from "react-router-dom";
+
 // import { Menu as MenuIcon } from "grommet-icons";
 import { ReactComponent as FeedbackIcon } from "assets/icons/mail.svg";
 import styled from "styled-components";
 
 // ICONS
-import SvgIcon from "./Icon/SvgIcon";
-import menu from "assets/icons/menu.svg";
 
+import menu from "assets/icons/menu.svg";
+import SvgIcon from "./Icon/SvgIcon";
+import envelope from "assets/icons/envolope.svg";
 import logo from "assets/logo.svg";
 import Logo from "./Logo";
 import { theme, mq } from "../constants/theme";
@@ -146,22 +148,25 @@ export default ({ onMenuClick, onFeedbackIconClick, ...props }) => {
                       </li>
                     </>
                   ) : (
-                    <>
-                      <li>
-                        <NavLink activeStyle={activeStyles} to="/auth/login">
-                          Login
+                      <>
+                        <li>
+                          <NavLink activeStyle={activeStyles} to="/auth/login">
+                            Login
                         </NavLink>
-                      </li>
-                      <li className="registerBtn">
-                        <NavLink className="registerLink" to="/auth/signup">
-                          Register
+                        </li>
+                        <li className="registerBtn">
+                          <NavLink className="registerLink" to="/auth/signup">
+                            Register
                         </NavLink>
-                      </li>
-                    </>
-                  )}
+                        </li>
+                      </>
+                    )}
                   <li>
                     <button onClick={() => onFeedbackIconClick()}>
-                      <FeedbackIcon />
+                      <SvgIcon
+                        src={envelope}
+                        style={{ marginLeft: "1rem" }}
+                      />
                     </button>
                   </li>
                 </ul>
