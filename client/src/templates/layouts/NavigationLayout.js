@@ -387,6 +387,7 @@ const NavigationLayout = (props) => {
         <NavItem history={history} link="/about">
           About Us
         </NavItem>
+
         <NavItem history={history} link="/privacy">
           Data Privacy
         </NavItem>
@@ -397,6 +398,7 @@ const NavigationLayout = (props) => {
         >
           Feedback
         </NavItem>
+
       </NavList>
       {drawerOpened && <CloseNav onClick={toggleDrawer} />}
     </>

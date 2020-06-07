@@ -5,23 +5,22 @@ import { Link, NavLink } from "react-router-dom";
 // import { Menu as MenuIcon } from "grommet-icons";
 import { ReactComponent as FeedbackIcon } from "assets/icons/mail.svg";
 import styled from "styled-components";
-
 // ICONS
 import SvgIcon from "./Icon/SvgIcon";
+import envelope from "assets/icons/envelope.svg";
 import menu from "assets/icons/menu.svg";
 import logo from "assets/logo.svg";
 import Logo from "./Logo";
 import { theme, mq } from "../constants/theme";
+
 const { colors, typography } = theme;
 const { large } = typography.size;
-
 const BrandLink = styled(Link)`
   display: inline-flex;
   @media screen and (min-width: ${mq.phone.wide.maxWidth}) {
     padding-left: 4rem;
   }
 `;
-
 const StyledNavBar = styled(NavBar)`
   height: 7rem;
   margin-top: 0;
@@ -33,7 +32,6 @@ const StyledNavBar = styled(NavBar)`
     display: none;
   }
 `;
-
 const MenuToggle = styled(SvgIcon)`
   cursor: pointer;
   display: none !important;
@@ -41,17 +39,14 @@ const MenuToggle = styled(SvgIcon)`
     display: block !important;
   }
 `;
-
 const DesktopMenu = styled.div`
-  background-color: #fff;
+  background-color: ${colors.white};
   display: flex;
   align-items: center;
-  display: block;
   @media screen and (max-width: ${mq.phone.wide.maxWidth}) {
     display: none;
   }
 `;
-
 const NavLinks = styled.div`
   align-self: flex-end;
   padding-top: 2rem;
@@ -66,7 +61,6 @@ const NavLinks = styled.div`
     display: flex;
     margin-bottom: 0rem;
     margin-right: 5rem;
-
     .registerBtn {
       color: ${colors.royalBlue};
       border: 1px solid ${colors.royalBlue};
@@ -81,11 +75,9 @@ const NavLinks = styled.div`
         font-weight: 500;
       }
     }
-
     li {
       font-size: ${large};
       color: ${colors.darkerGray};
-      padding: 0 1rem;
       a:not(.registerLink) {
         color: ${colors.darkerGray};
         text-decoration: none;
@@ -101,13 +93,11 @@ const NavLinks = styled.div`
     }
   }
 `;
-
 const activeStyles = {
   fontWeight: "600",
-  color: "#425AF2",
+  color: `${colors.royalBlue};`,
 };
-
-export default ({ onMenuClick, isAuthenticated, onFeedbackIconClick }) => {
+export default ({ isAuthenticated,onFeedbackIconClick, onMenuClick }) => {
   return (
     <div className="header">
       <StyledNavBar
@@ -130,11 +120,6 @@ export default ({ onMenuClick, isAuthenticated, onFeedbackIconClick }) => {
                   <li>
                     <NavLink activeStyle={activeStyles} to="/feed">
                       Feed
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink activeStyle={activeStyles} to="/covid-info">
-                      COVID-info
                     </NavLink>
                   </li>
                   {isAuthenticated ? (
@@ -164,6 +149,7 @@ export default ({ onMenuClick, isAuthenticated, onFeedbackIconClick }) => {
                       <FeedbackIcon />
                     </button>
                   </li>
+
                 </ul>
               </NavLinks>
             </DesktopMenu>
