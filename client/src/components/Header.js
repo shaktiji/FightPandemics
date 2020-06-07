@@ -7,10 +7,8 @@ import { ReactComponent as FeedbackIcon } from "assets/icons/mail.svg";
 import styled from "styled-components";
 
 // ICONS
-
-import menu from "assets/icons/menu.svg";
 import SvgIcon from "./Icon/SvgIcon";
-import envelope from "assets/icons/envolope.svg";
+import menu from "assets/icons/menu.svg";
 import logo from "assets/logo.svg";
 import Logo from "./Logo";
 import { theme, mq } from "../constants/theme";
@@ -86,10 +84,10 @@ const NavLinks = styled.div`
 
     li {
       font-size: ${large};
-      color: #282828;
+      color: ${colors.darkerGray};
       padding: 0 1rem;
       a:not(.registerLink) {
-        color: #282828;
+        color: ${colors.darkerGray};
         text-decoration: none;
         padding: 1.2rem 1.4rem;
         transition: all 0.2s;
@@ -109,9 +107,9 @@ const activeStyles = {
   color: "#425AF2",
 };
 
-export default ({ onMenuClick, onFeedbackIconClick, ...props }) => {
+export default ({ onMenuClick, isAuthenticated, onFeedbackIconClick }) => {
   return (
-    <div className="header" {...props}>
+    <div className="header">
       <StyledNavBar
         mode="light"
         leftContent={
@@ -139,7 +137,7 @@ export default ({ onMenuClick, onFeedbackIconClick, ...props }) => {
                       COVID-info
                     </NavLink>
                   </li>
-                  {props.isAuthenticated ? (
+                  {isAuthenticated ? (
                     <>
                       <li>
                         <NavLink activeStyle={activeStyles} to="/profile">
@@ -163,10 +161,7 @@ export default ({ onMenuClick, onFeedbackIconClick, ...props }) => {
                     )}
                   <li>
                     <button onClick={() => onFeedbackIconClick()}>
-                      <SvgIcon
-                        src={envelope}
-                        style={{ marginLeft: "1rem" }}
-                      />
+                      <FeedbackIcon />
                     </button>
                   </li>
                 </ul>
