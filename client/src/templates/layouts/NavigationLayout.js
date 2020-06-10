@@ -41,7 +41,6 @@ const drawerStyles = {
 const sidebarStyle = {
   background: `${ROYAL_BLUE}`,
 };
-
 const NavList = styled(List)`
   width: 63vw !important;
   @media screen and (min-width: 1024px) {
@@ -140,7 +139,7 @@ const NavigationLayout = (props) => {
   const history = useHistory();
 
   const [drawerOpened, setDrawerOpened] = useState(false);
-
+  const [changeValue, setChangeValue] = useState(false);
   const [feedbackState, feedbackDispatch] = useReducer(
     feedbackReducer,
     initialState.feedbackReducer,
@@ -193,7 +192,9 @@ const NavigationLayout = (props) => {
   const closeRadioModal = () => {
     submitFeedbackForm();
     toggleModal("thanksModal");
-    toggleModal("radioModal");
+    toggleModal("radioModal")
+    if (feedbackFormState.error === "") {
+    }
   };
 
   const submitFeedbackForm = async () => {
@@ -260,16 +261,18 @@ const NavigationLayout = (props) => {
         value: "I am diagnosed with Covid-19",
       },
     ];
+    const handelChange = (event) => {
+      setChangeValue(event.target.value);
+    }
 
     const RadioGroupWithLabel = withLabel(() => (
       <RadioGroup
-        onChange={true}
+        onChange={handelChange}
         options={radioButtonOptions}
-        value={true}
+        value={changeValue}
         padding="1rem 1rem"
       ></RadioGroup>
     ));
-
     return (
       <RadioModal
         maskClosable={true}
@@ -312,7 +315,6 @@ const NavigationLayout = (props) => {
       },
       { stateKey: "generalFeedback", label: "Any other feedback for us?" },
     ];
-
     return (
       <TextFeedbackModal
         afterClose={() => closeTextFeedbackModal}
@@ -343,7 +345,6 @@ const NavigationLayout = (props) => {
 
   const renderRatingModal = () => {
     const ratingScale = ["1", "2", "3", "4", "5"];
-
     return (
       <RatingModal
         maskClosable={true}

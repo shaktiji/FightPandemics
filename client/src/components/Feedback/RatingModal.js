@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { Modal } from "antd-mobile";
 import { theme } from "../../constants/theme";
 
-const { royalBlue } = theme.colors;
-const { darkerGray } = theme.colors;
-
+const { royalBlue, white } = theme.colors;
 const RatingModal = styled(Modal)`
   font-family: ${theme.typography.font.family.display};
   width: 80vw;
@@ -40,8 +38,8 @@ const RatingModal = styled(Modal)`
       &:hover,
       &:active,
       &:focus {
-        background-color: ${darkerGray};
-        color: #fff;
+        background-color: ${royalBlue};
+        color: ${white};
       }
       &:last-child {
         border-right: none !important;

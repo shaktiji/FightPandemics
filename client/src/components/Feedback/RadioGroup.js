@@ -26,12 +26,14 @@ const StyledRadioGroup = styled(Radio.Group)`
     .ant-radio-inner {
       border-color: ${royalBlue};
       border-width: 0.2rem;
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2.1rem;
+      height: 2.1rem;
       &::after {
         background-color: ${royalBlue};
-        top: 0.2rem;
-        left: 0.2rem;
+        top: 0.0rem;
+        left: 0.0rem;
+        width: 1.7rem;
+        height: 1.7rem;
       }
     }
   }
@@ -55,7 +57,7 @@ const RadioGroup = ({
       defaultValue={defaultValue}
     >
       {options.map((option, index) => (
-        <Radio value={option.stateKey} key={index}>
+        <Radio value={option.value} key={index}>
           {option.value}
         </Radio>
       ))}

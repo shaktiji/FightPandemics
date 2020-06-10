@@ -11,15 +11,15 @@ const StyledFeedbackModalButton = styled(SubmitButton)`
     width: 21vw;
     margin-top: 1rem;
     margin-bottom: -0.5rem;
+    color:${royalBlue};
+    background-color:${selago};
   }
   width: 90%;
   margin-top: 3rem;
   margin-bottom: 1rem;
-  background-color: ${(props) => (props.dark ? royalBlue : selago)};
+  background-color: ${(props) => (props.dark ? selago : royalBlue)};
   border: none;
-  span {
-    color: ${(props) => (props.dark ? white : royalBlue)};
-  }
+  color:${white};
 `;
 
 const FeedbackModalButton = (props) => {
