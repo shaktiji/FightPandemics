@@ -229,7 +229,7 @@ const NavigationLayout = (props) => {
           Your input means a lot and helps us help you and others during and
           after the COVID-19 pandemic.
         </p>
-        <Logo src={logo} alt="Fight Pandemics logo" />
+        <Logo src={logo} alt="FightPandemics logo" />
       </ThanksModal>
     );
   };
